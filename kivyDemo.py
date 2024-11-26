@@ -12,7 +12,7 @@ import gujhk
 import mukhpath
 import harikrishna
 
-GHANSHYAM_FONT_PATH = '/home/bhavsar/.fonts/GHANSHYAM.ttf'
+GHANSHYAM_FONT_PATH = '~/.fonts/GHANSHYAM.ttf'
 MARKUP_CLOSER = '[/color]'
 
 class MyApp(App):
