@@ -71,27 +71,43 @@ harikrishna_letters = {
   'au': 'ai]',
   'aM': 'a>',
   'aH': 'a:',
+  'aum':'ú',
 
   # Conjuncts
   'kk' : 'Ê',
   'kr' : "k|",
   'kl' : '±l',
   'kt' : '±Ri',
+  'ky' : '±y',
+  'khy': '²y',
+  'khr': 'K\\',
+  'kSh': 'x',
+  'gN' : 'X',
+  'gr' : 'g\\',
+  'gy' : '³y',
+  'cch': 'µC',
+  'jA' : 'Ô',
+  'jI' : 'J',
   'jj' : 'Ì',
   'jr' : 'Õ',
   'TT' : 'Í',
   'Dr' : 'D^',
   'tt' : '_i',
+  'tn' : 'Rn',
   'ttv': '_v',
   'tr' : '3i',
+  'tm' : 'Rm',
+  'tp' : 'Rp',
+  'ty' : 'Ry',
+  'ts' : 'Rs',
   'str': 'A#i',
   'hy' : 'H',
   'hm' : 'M',
-  'kSh': 'x',
-  'gN' : 'X',
   'ru' : '@',
   'rU' : '$',
   'shv': 'V',
+  'shw': 'V',
+  'dhy': '¹y',
   'dr' : 'W',
   'dR' : 'Ø',
   'dy' : 'w',
@@ -100,27 +116,31 @@ harikrishna_letters = {
   'sm' : 'sm',
   'dd' : 'Ñ',
   'ddh': 'Ü',
+  'nt' : 'ºRi',
   'nn' : 'Ò',
   'nm' : 'ºm',
   'nmy': 'ºÀy',
   'vy' : 'Äy',
   'ly' : 'Ãy',
+  'Ly' : 'Çy',
   'ShT': 'Ö',
   'ShN': 'ON',
   'ShTh':'×',
+  'Shy': 'Oy',
   'shy': b'\xC5\x00'.decode('utf-16')+'y',
-  'shv': b'\xC5\x00'.decode('utf-16')+'v',
-  'shw': b'\xc5\x00'.decode('utf-16')+'v',
   'shr': '~',
+  'sp' : 'Ap',
   'sv' : 'Av',
   'sw' : 'Av',
   'pr' : 'p\\',
   'pn' : '¼n',
 
   'by' : '¾y',
-  'br' : 'b|',
+  'br' : 'b\\',
   'bhy': '¿y',
   'bhr': 'B\\',
+  'mb' : 'Àb',
+  'mbh': 'ÀB',
 
 
   # r-conjuncts
@@ -163,6 +183,8 @@ harikrishna_letters = {
   ',' : ',',
   'M' : '>',
   '+' : '',
+  '-' : '-',
+  "'" : "'",
 
 }
 
@@ -269,8 +291,12 @@ def ascii_to_harikrishna(word : str) -> str:
       # First letter
       elif i == 0:
 
+        if len(word) > 2 and c + word[i+1] + word[i+2] == 'aum':
+          hk_word += hk_pattern(c + word[i+1] + word[i+2])
+          i += 2
+
         # ai, au, aM, aH
-        if word[i+1] in ['a,','i', 'u', 'M', 'H']:
+        elif word[i+1] in ['a,','i', 'u', 'M', 'H']:
           hk_word += hk_pattern(c + word[i+1])
           i += 1
 
@@ -306,8 +332,13 @@ def ascii_to_harikrishna(word : str) -> str:
 
         # Standalone
         else:
+
+          if i < len(word) - 3 and c + word[i+1] + word[i+2] == 'aum':
+            hk_word += hk_pattern(c + word[i+1] + word[i+2])
+            i += 2
+
           # ai, au, aM, aH
-          if word[i+1] in ['i', 'u', 'M', 'H']:
+          elif word[i+1] in ['i', 'u', 'M', 'H']:
             hk_word += hk_pattern(c + word[i+1])
             i += 1
           # a
@@ -332,7 +363,7 @@ def ascii_to_harikrishna(word : str) -> str:
         hk_word = remove_virama(hk_word)
 
         # Add I before both consonants
-        hk_word = '+'.join(hk_word.split('+')[:-2]) + 'I' + hk_word.split('+')[-1]
+        hk_word = '+'.join(hk_word.split('+')[:-1]) + 'I' + hk_word.split('+')[-1]
         #hk_word = hk_word[:-2] + 'I' + hk_word[-2] + hk_word[-1]
 
         # Add a dummy symbol to prevent additional diacritics to the conjunct;
@@ -344,7 +375,8 @@ def ascii_to_harikrishna(word : str) -> str:
         logger.info(f"Found a singular consonant {word[i-1]} with a dirgai 'i'.")
         # Remove virama
         hk_word = remove_virama(hk_word)
-        hk_word = hk_word[:-1] + '(' + hk_word[-1] + DUMMY_CHARACTER
+        # Add I before consonant
+        hk_word = '+'.join(hk_word.split('+')[:-1]) + '(' + hk_word.split('+')[-1]
 
       # Standalone vowel
       else:
@@ -370,7 +402,7 @@ def ascii_to_harikrishna(word : str) -> str:
         hk_word += hk_pattern(c)
 
     # --------------- Special characters ----------- #
-    elif c in ['.', ' ', '|','M', ',', '+']:
+    elif c in ['.', ' ', '|','M', ',', '+', '-', "'"]:
       hk_word += hk_pattern(c)
 
     # ----------------- Digits --------------------- #
@@ -388,7 +420,7 @@ def ascii_to_harikrishna(word : str) -> str:
           hk_word += hk_pattern(c + word[i+1] + word[i+2] + word[i+3]) + VIRAMA
           i += 3
 
-        if(hk_pattern(c + word[i+1] + word[i+2])) != '':
+        elif(hk_pattern(c + word[i+1] + word[i+2])) != '':
           hk_word += hk_pattern(c + word[i+1] + word[i+2]) + VIRAMA
           i += 2
 
@@ -423,6 +455,11 @@ def ascii_to_harikrishna(word : str) -> str:
 
       # ru and rU
       elif i < len(word) - 2 and c + word[i+1] in ['ru', 'rU']:
+        hk_word += hk_pattern(c + word[i+1])
+        i += 1
+
+      # ji and jI
+      elif i < len(word) - 2 and c + word[i+1] in ['jA', 'jI']:
         hk_word += hk_pattern(c + word[i+1])
         i += 1
 
