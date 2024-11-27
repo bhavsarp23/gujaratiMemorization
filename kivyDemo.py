@@ -48,12 +48,15 @@ class MyApp(App):
         self.score_label = Label(text=f'Question {self.q_current}/{self.q_total}, Average: {self.average_score}')
         virama_box_label = Label(text="Implicitly use viramas")
         self.virama_box = CheckBox()
-        copy_button = Button(text='Copy Text')
+        copy_button = Button(text='Copy Output')
+        copy_input = Button(text='Copy Input')
         copy_button.bind(on_press=self.copy_text)
+        copy_input.bind(on_press=self.copy_input)
         score_panel.add_widget(self.score_label)
         score_panel.add_widget(virama_box_label)
         score_panel.add_widget(self.virama_box)
         score_panel.add_widget(copy_button)
+        score_panel.add_widget(copy_input)
         middle_panel.add_widget(score_panel)
 
         # Hint box
@@ -103,6 +106,9 @@ class MyApp(App):
     def copy_text(self, instance):
         Clipboard.copy(self.transliterated_output.text)
         # logger.info('Copied output text to clipboard.')
+
+    def copy_input(self, instance):
+        Clipboard.copy(self.text_input.text)
 
     def update_difference_box(self, diff_str : str):
         # Set all text to green
