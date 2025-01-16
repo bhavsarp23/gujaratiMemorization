@@ -41,6 +41,7 @@ harikrishna_letters = {
   'n' : 'n',
   'p' : 'p',
   'ph': 'f',
+  'f' : 'f',
   'b' : 'b',
   'bh': 'B',
   'm' : 'm',
@@ -71,6 +72,7 @@ harikrishna_letters = {
   'au': 'ai]',
   'aM': 'a>',
   'aH': 'a:',
+  'H' : ':',
   'aum':'ú',
 
   # Conjuncts
@@ -113,16 +115,20 @@ harikrishna_letters = {
   'dy' : 'w',
   'dv' : 'o',
   'aM' : 'a>',
-  'sm' : 'sm',
+  'sm' : 'Am',
   'dd' : 'Ñ',
   'ddh': 'Ü',
   'nt' : 'ºRi',
   'nn' : 'Ò',
   'nm' : 'ºm',
+  'ny' : 'ºy',
   'nmy': 'ºÀy',
   'vy' : 'Äy',
   'ly' : 'Ãy',
+  'll' : 'Ãl',
+  'lp' : 'Ãp',
   'Ly' : 'Çy',
+  'Shp': 'Op',
   'ShT': 'Ö',
   'ShN': 'ON',
   'ShTh':'×',
@@ -134,6 +140,7 @@ harikrishna_letters = {
   'sw' : 'Av',
   'pr' : 'p\\',
   'pn' : '¼n',
+  'py' : '¼y',
 
   'by' : '¾y',
   'br' : 'b\\',
@@ -185,6 +192,10 @@ harikrishna_letters = {
   '+' : '',
   '-' : '-',
   "'" : "'",
+  '!' : '!',
+  '?' : '?',
+  '"' : '"',
+  "'" : "'",
 
 }
 
@@ -202,7 +213,227 @@ harikrishna_diacritics = {
   'au': 'i]',
   'O' : 'iƒ',
   'aM': '>',
-  'R' : 'Z'
+  'R' : 'Z',
+  'H' : ':',
+
+}
+
+unicode_diacritics = {
+
+  'A' : 'ા',
+  'i': 'િ',
+  'I': 'ી',
+  'u': 'ુ',
+  'U': 'ૂ',
+  'e': 'ે',
+  'E': 'ૅ',
+  'ai': 'ૈ',
+  'o': 'ો',
+  'au': 'ૌ',
+  'O': 'ૉ',
+  'aM': 'ં',
+  'R': 'ૃ',
+  'H': 'ઃ',
+  
+}
+
+
+unicode_letters = {
+
+  # Consonants
+  'k' : 'ક',
+  'kh': 'ખ',
+  'g' : 'ગ',
+  'gh': 'ઘ',
+  'Z' : 'ઙ',
+  'c' : 'ચ',
+  'ch': 'છ',
+  'j' : 'જ',
+  'jh': 'ઝ',
+  'J' : 'ઞ',
+  'T' : 'ટ',
+  'Th': 'ઠ',
+  'D' : 'ડ',
+  'Dh': 'ઢ',
+  'N' : 'ણ',
+  't' : 'ત',
+  'th': 'થ',
+  'd' : 'દ',
+  'dh': 'ધ',
+  'n' : 'ન',
+  'p' : 'પ',
+  'ph': 'ફ',
+  'f' : 'ફ',
+  'b' : 'બ',
+  'bh': 'ભ',
+  'm' : 'મ',
+  'y' : 'ય',
+  'r' : 'ર',
+  'l' : 'લ',
+  'v' : 'વ',
+  'sh': 'શ',
+  's' : 'સ',
+  'h' : 'હ',
+  'Sh': 'ષ',
+  'L' : 'ળ',
+
+  # Vowels
+  ' ' : ' ',
+  '.' : '.',
+  'a' : 'અ',
+  'A' : 'આ',
+  'i' : 'ઇ',
+  'I' : 'ઈ',
+  'u' : 'ઉ',
+  'U' : 'ઊ',
+  'e' : 'એ',
+  'ai' : 'ઐ',
+  'o' : 'ઓ',
+  'au' : 'ઔ',
+  'E' : 'ઍ',
+  'O' : 'ઑ',
+
+  # Vowels
+  ' ' : ' ',
+  '.' : '.',
+  'a' : 'a',
+  'A' : 'ai',
+  'i' : 'e',
+  'I' : 'E',
+  'u' : 'u',
+  'U' : 'U',
+  'e' : 'a[',
+  'E' : 'aƒ',
+  'ai': 'a]',
+  'o' : 'ai[',
+  'O' : 'aiƒ',
+  'au': 'ai]',
+  'aM': 'a>',
+  'aH': 'a:',
+  'H' : ':',
+  'aum':'ú',
+
+  # Conjuncts
+  'kk' : 'ક્ક',
+  'kr' : 'ક્ર',
+  'kl' : 'ક્લ',
+  'kt' : 'ક્ત',
+  'ky' : 'ક્ય',
+  'khy': 'ખ્ય',
+  'khr': 'ખ્ર',
+  'kSh': 'ક્ષ',
+  'gN' : 'જ્ઞ',
+  'gr' : 'ગ્ર',
+  'gy' : 'ગ્ય',
+  'cch': 'ચ્ચ',
+  'jA' : 'જા',
+  'jI' : 'જી',
+  'jj' : 'જ્જ',
+  'jr' : 'જ્ર',
+  'TT' : 'ટ્ટ',
+  'Dr' : 'ડ્ડ',
+  'tt' : 'ત્ત',
+  'tn' : 'ત્ન',
+  'tv' : 'ત્વ',
+  'ttv': 'ત્ત્વ',
+  'tr' : 'ત્ર',
+  'tm' : 'ત્મ',
+  'tp' : 'ત્પ',
+  'ty' : 'ત્ય',
+  'ts' : 'ત્સ',
+  'str': 'સ્ત્ર',
+  'hy' : 'હ્ય',
+  'hm' : 'હ્મ',
+  'ru' : 'રુ',
+  'rU' : 'રૂ',
+  'shv': 'શ્વ',
+  'shw': 'શ્વ',
+  'dhy': 'ધ્ય',
+  'dr' : 'દ્ર',
+  'dR' : 'દૃ',
+  'dy' : 'દ્ય',
+  'dv' : 'દ્વ',
+  'aM' : 'અં',
+  'sm' : 'સ્મ',
+  'dd' : 'દ્દ',
+  'ddh': 'દ્ધ',
+  'nt' : 'ન્ત',
+  'nn' : 'ન્ન',
+  'nm' : 'ન્મ',
+  'ny' : 'ન્ય',
+  'nmy': 'ન્મ્ય',
+  'vy' : 'વ્ય',
+  'ly' : 'લ્ય',
+  'll' : 'લ્લ',
+  'lp' : 'લ્પ',
+  'Ly' : 'ળ્ય',
+  'shp': 'શ્પ',
+  'Shp': 'ષ્પ',
+  'ShT': 'ષ્ટ',
+  'ShN': 'ષ્ણ',
+  'ShTh':'ષ્ઠ',
+  'Shy': 'ષ્ય',
+  'shy': 'શ્ય',
+  'shr': 'શ્ર',
+  'sp' : 'સ્પ',
+  'sv' : 'સ્વ',
+  'sw' : 'સ્વ',
+  'pr' : 'પ્ર',
+  'pn' : 'પ્ન',
+  'py' : 'પ્ય',
+  'by' : 'બ્ય',
+  'br' : 'બ્ર',
+  'bhy': 'ભ્ય',
+  'bhr': 'ભ્ર',
+  'mb' : 'મ્બ',
+  'mbh': 'મ્ભ',
+
+  # r-conjuncts
+  'rk' : 'ર્ક',
+  'rkh': 'ર્ખ',
+  'rg' : 'ર્ગ',
+  'rgh': 'ર્ઘ',
+  'rc' : 'ર્ચ',
+  'rch': 'ર્છ',
+  'rj' : 'ર્જ',
+  'rjh': 'ર્ઝ',
+  'rT' : 'ર્ટ',
+  'rTh': 'ર્ઠ',
+  'rD' : 'ર્ડ',
+  'rDh': 'ર્ઢ',
+  'rN' : 'ર્ણ',
+  'rt' : 'ર્ત',
+  'rth': 'ર્થ',
+  'rd' : 'ર્દ',
+  'rdh': 'ર્ધ',
+  'rn' : 'ર્ન',
+  'rp' : 'ર્પ',
+  'rph': 'ર્ફ',
+  'rb' : 'ર્બ',
+  'rbh': 'ર્ભ',
+  'rm' : 'ર્મ',
+  'ry' : 'ર્ય',
+  'rr' : 'ર્ર',
+  'rl' : 'ર્લ',
+  'rv' : 'ર્વ',
+  'rsh': 'ર્શ',
+  'rs' : 'ર્સ',
+  'rh' : 'ર્હ',
+  'rSh': 'ર્ષ',
+  'rL' : 'ર્ળ',
+
+  # Special characters
+  '.' : '.',
+  ' ' : ' ',
+  ',' : ',',
+  'M' : '>',
+  '+' : '',
+  '-' : '-',
+  "'" : "'",
+  '!' : '!',
+  '?' : '?',
+  '"' : '"',
+  "'" : "'",
 
 }
 
@@ -265,6 +496,7 @@ def remove_virama(input : str) -> str:
 #     i += 1
 
 VIRAMA = '`'
+#VIRAMA = '્'
 AVAGRAH = 'ઽ'
 DUMMY_CHARACTER = '+'
 CHANDRA = '<'
@@ -286,22 +518,22 @@ def ascii_to_harikrishna(word : str) -> str:
 
       # Only letter
       if len(word) == 1:
-        hk_word += hk_pattern(c)
+        hk_word += hk_pattern(c) + DUMMY_CHARACTER
 
       # First letter
       elif i == 0:
 
         if len(word) > 2 and c + word[i+1] + word[i+2] == 'aum':
-          hk_word += hk_pattern(c + word[i+1] + word[i+2])
+          hk_word += hk_pattern(c + word[i+1] + word[i+2]) + DUMMY_CHARACTER
           i += 2
 
         # ai, au, aM, aH
         elif word[i+1] in ['a,','i', 'u', 'M', 'H']:
-          hk_word += hk_pattern(c + word[i+1])
+          hk_word += hk_pattern(c + word[i+1]) + DUMMY_CHARACTER
           i += 1
 
         else:
-          hk_word += hk_pattern(c)
+          hk_word += hk_pattern(c) + DUMMY_CHARACTER
 
       # Last letter
       elif i == len(word) - 1:
@@ -334,16 +566,16 @@ def ascii_to_harikrishna(word : str) -> str:
         else:
 
           if i < len(word) - 3 and c + word[i+1] + word[i+2] == 'aum':
-            hk_word += hk_pattern(c + word[i+1] + word[i+2])
+            hk_word += hk_pattern(c + word[i+1] + word[i+2]) + DUMMY_CHARACTER
             i += 2
 
           # ai, au, aM, aH
           elif word[i+1] in ['i', 'u', 'M', 'H']:
-            hk_word += hk_pattern(c + word[i+1])
+            hk_word += hk_pattern(c + word[i+1]) + DUMMY_CHARACTER
             i += 1
           # a
           else:
-            hk_word += hk_pattern(c)
+            hk_word += hk_pattern(c) + DUMMY_CHARACTER
 
     # i
     elif c == 'i':
@@ -363,7 +595,11 @@ def ascii_to_harikrishna(word : str) -> str:
         hk_word = remove_virama(hk_word)
 
         # Add I before both consonants
-        hk_word = '+'.join(hk_word.split('+')[:-1]) + 'I' + hk_word.split('+')[-1]
+        if len(hk_word.split('+')[-1]) > 1:
+          # Add an I
+          hk_word = '+'.join(hk_word.split('+')[:-1]) + 'I' + hk_word.split('+')[-1]
+        else:
+          hk_word = '+'.join(hk_word.split('+')[:-1]) + '(' + hk_word.split('+')[-1]
         #hk_word = hk_word[:-2] + 'I' + hk_word[-2] + hk_word[-1]
 
         # Add a dummy symbol to prevent additional diacritics to the conjunct;
@@ -375,15 +611,15 @@ def ascii_to_harikrishna(word : str) -> str:
         logger.info(f"Found a singular consonant {word[i-1]} with a dirgai 'i'.")
         # Remove virama
         hk_word = remove_virama(hk_word)
-        # Add I before consonant
+        # Add ( before consonant
         hk_word = '+'.join(hk_word.split('+')[:-1]) + '(' + hk_word.split('+')[-1]
 
       # Standalone vowel
       else:
-        hk_word += hk_pattern(c)
+        hk_word += hk_pattern(c) + DUMMY_CHARACTER
 
     # All other vowels
-    elif c in ['A', 'I', 'e', 'E', 'o', 'O', 'R', 'u', 'U']:
+    elif c in ['A', 'I', 'e', 'E', 'o', 'O', 'R', 'u', 'U', 'H']:
 
       # Only letter or first letter
       if i == 0:
@@ -399,15 +635,15 @@ def ascii_to_harikrishna(word : str) -> str:
 
       # Standalone
       else:
-        hk_word += hk_pattern(c)
+        hk_word += hk_pattern(c) + DUMMY_CHARACTER
 
     # --------------- Special characters ----------- #
-    elif c in ['.', ' ', '|','M', ',', '+', '-', "'"]:
-      hk_word += hk_pattern(c)
+    elif c in ['.', ' ', '|','M', 'H', ',', '+', '-', "'", '?', '!', "'", '"']:
+      hk_word += hk_pattern(c) + DUMMY_CHARACTER
 
     # ----------------- Digits --------------------- #
     elif c in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']:
-      hk_word += c
+      hk_word += c + DUMMY_CHARACTER
 
     # --------------- Consonants ------------------- #
 
