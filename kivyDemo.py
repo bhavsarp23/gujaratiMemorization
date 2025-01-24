@@ -9,22 +9,29 @@ from kivy.core.clipboard import Clipboard
 from kivy.uix.button import Button
 from kivy.uix.dropdown import DropDown
 
+import logging
+
 import gujhk
 import mukhpath
 import harikrishna
 
-GHANSHYAM_FONT_PATH = '/home/parthbhavsar/.fonts/GHANSHYAM.ttf'
-GHANSHYAM_FONT_PATH = '/home/parthbhavsar/.fonts/sarjudas.ttf'
+GHANSHYAM_FONT_PATH = './GHANSHYAM.ttf'
+#GHANSHYAM_FONT_PATH = './sarjudas.ttf'
 UNICODE_FONT_PATH = '/home/parthbhavsar/.fonts/Noto_Sans_Gujarati/static/NotoSansGujarati-Medium.ttf'
 MARKUP_CLOSER = '[/color]'
+FONT_SIZE = '58sp'
+
+logger = logging.getLogger(__name__)
 
 class MukhpathApp(App):
+
+    harvard_kyoto_mode = True
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.q_current = 1
         self.average_score = 0
-        self.mukhpath = mukhpath.open_mp_file('sample.txt')
+        self.mukhpath = mukhpath.open_mp_file('simple.txt')
         self.q_total = len(self.mukhpath)
 
     def build(self):
@@ -34,9 +41,9 @@ class MukhpathApp(App):
 
         # Create three vertical box layouts within the top layout; the middle
         # layout will be used for widgets
-        left_panel = BoxLayout()
+        left_panel = BoxLayout(size_hint=(0.2, 1))
         middle_panel = BoxLayout(orientation='vertical')
-        right_panel = BoxLayout()
+        right_panel = BoxLayout(size_hint=(0.2, 1))
         top_level_layout.add_widget(left_panel)
         top_level_layout.add_widget(middle_panel)
         top_level_layout.add_widget(right_panel)
@@ -59,7 +66,7 @@ class MukhpathApp(App):
         middle_panel.add_widget(score_panel)
 
         # Hint box
-        self.hint_box = Label(width=200, font_size='44sp',
+        self.hint_box = Label(width=200, font_size=FONT_SIZE,
             font_name=GHANSHYAM_FONT_PATH,
             halign='center',
             text_size=(1000,None))
@@ -67,15 +74,14 @@ class MukhpathApp(App):
         middle_panel.add_widget(self.hint_box)
 
         # Difference box
-        self.difference_box = Label(width=200, font_size='44sp',
-            font_name=GHANSHYAM_FONT_PATH,
+        self.difference_box = Label(width=200, font_size=FONT_SIZE,
             halign='center',
             text_size=(1000,None),
             markup=True)
         middle_panel.add_widget(self.difference_box)
 
         # Transliterated box
-        self.transliterated_output = Label(width=200, font_size='44sp',
+        self.transliterated_output = Label(width=200, font_size=FONT_SIZE,
             font_name=GHANSHYAM_FONT_PATH,
             halign='center',
             text_size=(1000,None))
@@ -110,7 +116,7 @@ class MukhpathApp(App):
 
         # Font selection
         font_select = DropDown()
-        for font in ['GHANSHYAM', 'sarjudas', 'Unicode']:
+        for font in ['GHANSHYAM', 'sarjudas', 'Unicode', 'probolinggo', 'alphabetized-cassette-tapes','DejaVuSans']:
             drop_down = Button(text=font, size_hint_y=None, height=44)
             drop_down.bind(on_press=lambda btn: font_select.select(btn.text))
             font_select.add_widget(drop_down)
@@ -130,7 +136,10 @@ class MukhpathApp(App):
 
     def update_output(self, ascii_text):
         #self.transliterated_output.text = gujhk.ascii_to_guj(ascii_text)
-        self.transliterated_output.text = harikrishna.ascii_to_harikrishna(ascii_text)
+        if self.harvard_kyoto_mode:
+            self.transliterated_output.text = harikrishna.ascii_to_harikrishna(ascii_text)
+        else:
+            self.transliterated_output.text = harikrishna.ascii_to_latin_diacritic(ascii_text)
 
     def on_text_input(self, instance, value):
         self.update_output(self.text_input.text)
@@ -145,6 +154,10 @@ class MukhpathApp(App):
     def set_font(self, instance, font):
         if 'Unicode' in font:
             font = UNICODE_FONT_PATH
+        if font in ['probolinggo', 'alphabetized-cassette-tapes','DejaVuSans']:
+            self.harvard_kyoto_mode = False
+        else:
+            self.harvard_kyoto_mode = True
         self.transliterated_output.font_name = font
         self.hint_box.font_name = font
         self.difference_box.font_name = font
@@ -160,21 +173,50 @@ class MukhpathApp(App):
         markup_str = []
         i = 0
 
-        while i < len(diff_str):
-            if diff_str[i] in ['+', '-']:
-                markup_str.append(diff_str[i])
-                i += 1
-                # Add a closer after the letter
-                markup_str.append(diff_str[i])
-                markup_str.append(MARKUP_CLOSER)
-            else:
-                markup_str.append(diff_str[i])
+        # while i < len(diff_str):
+        #     if diff_str[i] in ['+', '-']:
+        #         markup_str.append(diff_str[i])
+        #         i += 1
+        #         # Add a closer after the letter
+        #         markup_str.append(diff_str[i])
+        #         markup_str.append(MARKUP_CLOSER)
+        #     else:
+        #         markup_str.append(diff_str[i])
 
-            i += 1
+        #     i += 1
+        # Get rid of extra spaces
+        markup_str = diff_str.replace('   ', '*').replace(' ','').replace('*',' ')
+        colored_list = []
+
+        i = 0
+        while i < len(markup_str):
+            # If there is a + or -, a character always exist to the right
+            if markup_str[i] == '+':
+                colored_list.append('[color=ffff00]')
+                colored_list.append(markup_str[i+1])
+                colored_list.append('[color=00ff00]')
+                i += 2
+            elif markup_str[i] == mukhpath.NDIFF_RM_CHAR and i+1 < len(markup_str):
+                colored_list.append('[color=ff0000]')
+                colored_list.append(markup_str[i+1])
+                colored_list.append('[color=00ff00]')
+                i += 2
+            else:
+                colored_list.append(markup_str[i])
+                i += 1
 
         # Add markup closing brackets for - and +
-        markup_str = ''.join(markup_str).replace('+','[color=ffff00]').replace('-','[color=ff0000]')
-\
+        # markup_str = ''.join(markup_str).replace('+','[color=ffff00]').replace('-','[color=ff0000]')
+        # i = 0
+        # while i < len(markup_str):
+        #     if markup_str[i] in ['[color=ffff00]','[color=ff0000]'] and \
+        #        i + 2 < len(markup_str):
+        #         markup_str = markup_str[:i] + '[color=ffffff]' + markup_str[i:]
+        #   i += 1
+        markup_str = ''.join(colored_list)
+        logger.info('Markup string: ' + markup_str)
+        if not self.harvard_kyoto_mode:
+            markup_str = harikrishna.ascii_to_latin_diacritic(markup_str)
         self.difference_box.text = markup_str
 
     def update_score(self, ratio : float):
@@ -182,7 +224,13 @@ class MukhpathApp(App):
 
     def get_hint(self) -> str:
         # Return the first three words of the mukhpath
-        return harikrishna.ascii_to_harikrishna(' '.join(self.mukhpath[self.q_current].split(' ')[0:3]))
+        if self.harvard_kyoto_mode:
+            return harikrishna.ascii_to_harikrishna(' '.join(self.mukhpath[self.q_current].split(' ')[0:3]))
+        else:
+            # Get the first three words of the question
+            result = ' '.join(self.mukhpath[self.q_current].split(' ')[0:3])
+            # Add latin diacritics
+            return harikrishna.ascii_to_latin_diacritic(result)
 
     def next_mp(self, instance):
         self.q_current = (self.q_current + 1) % len(self.mukhpath)
@@ -209,7 +257,8 @@ class MukhpathApp(App):
         )
         self.update_score(ratio)
         print(diff_str)
-        self.update_difference_box(harikrishna.ascii_to_harikrishna(''.join(diff_str.replace('   ', '128').replace(' ', '').replace('128', ' '))))
+        self.update_difference_box(diff_str)
+        # self.update_difference_box(harikrishna.ascii_to_harikrishna(''.join(diff_str.replace('   ', '128').replace(' ', '').replace('128', ' '))))
 
         # def on_text_change(self, instance):
     #     # Update the output label with the text from the TextInput
