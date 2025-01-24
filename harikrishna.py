@@ -234,7 +234,7 @@ unicode_diacritics = {
   'aM': 'ં',
   'R': 'ૃ',
   'H': 'ઃ',
-  
+
 }
 
 
@@ -436,6 +436,31 @@ unicode_letters = {
   "'" : "'",
 
 }
+
+ascii_diacritic = {
+  'A' : 'ā',
+  'T' : 'ṭ',
+  'D' : 'ḍ',
+}
+
+def ascii_pattern(pattern : str) -> str:
+  try:
+    result = ascii_diacritic[pattern]
+    logger.info((f'Found {pattern} in ascii diacritics dictionary as {result}.'))
+    return result
+  except:
+    logger.warning(f'Unable to find {pattern} in ascii diacritics dictionary.')
+    return pattern
+
+def ascii_to_latin_diacritic(pattern : str) -> str:
+  result_list = []
+  for c in pattern:
+    if c.isupper():
+      result_list.append(ascii_pattern(c))
+    else:
+      result_list.append(c)
+  return ''.join(result_list)
+
 
 def hk_pattern(pattern : str) -> str:
 
@@ -732,7 +757,6 @@ if __name__ == "__main__":
   logger.info('Running harikrishna.py as the main file.')
 
   print(ascii_to_harikrishna("artha"))
-
 
 
 
