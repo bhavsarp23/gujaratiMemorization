@@ -25,8 +25,8 @@ The application is written in Python and uses the Kivy GUI framework. It support
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/gujarati-memorization-app.git
-   cd gujarati-memorization-app
+   git clone https://github.com/bhavsarp23/gujaratiMemorization.git
+   cd gujaratiMemorization
 
 2. Install dependencies
    ```bash
